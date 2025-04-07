@@ -2,9 +2,8 @@ import 'react-native-url-polyfill/auto';
 import { createClient } from '@supabase/supabase-js';
 import * as SecureStore from 'expo-secure-store';
 
-// TODO: Replace these with your Supabase project URL and anon key
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = 'https://uabrniklevoijrnyqogs.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhYnJuaWtsZXZvaWpybnlxb2dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMTA5MTMsImV4cCI6MjA1OTU4NjkxM30.Z_FsKUp8Y8WGA1AmUSdR9zB1UEpgFQsZAWfjqqNpHT4';
 
 const ExpoSecureStoreAdapter = {
   getItem: (key: string) => {
