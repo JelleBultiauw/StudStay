@@ -1,29 +1,57 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type RootStackParamList = {
-  UploadKot: undefined;
-};
+export default function Home() {
+  const navigation = useNavigation();
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UploadKot'>;
-
-export default function HomeScreen() {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const handleUploadPress = () => {
+    navigation.navigate('UploadKot');
+  };
 
   return (
-    <View className="flex-1 bg-white p-4">
-      <View className="flex-1 justify-center">
-        <Text className="text-3xl font-bold text-center mb-8">Welcome to StudStay</Text>
-        
-        <TouchableOpacity
-          className="bg-blue-500 rounded-lg p-4 mb-4"
-          onPress={() => navigation.navigate('UploadKot')}
-        >
-          <Text className="text-white text-center font-semibold">Upload a Kot</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to StudStay</Text>
+      <Text style={styles.subtitle}>Find your perfect student accommodation</Text>
+      <TouchableOpacity 
+        style={styles.uploadButton}
+        onPress={handleUploadPress}
+      >
+        <Text style={styles.uploadButtonText}>Upload a Kot</Text>
+      </TouchableOpacity>
     </View>
   );
-} 
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 32,
+  },
+  uploadButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  uploadButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});
