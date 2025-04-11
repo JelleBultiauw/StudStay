@@ -15,6 +15,7 @@ import MessagesScreen from '../screens/app/Messages';
 import ProfileScreen from '../screens/app/Profile';
 import UploadKotScreen from '../screens/app/UploadKot';
 import ChatbotScreen from '../screens/app/Chatbot';
+import KotDetailsScreen from '../screens/app/KotDetails';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +49,7 @@ export const Navigation = () => {
             <Stack.Screen name="Main" component={AppStack} />
             <Stack.Screen name="UploadKot" component={UploadKotScreen} />
             <Stack.Screen name="Chatbot" component={ChatbotScreen} />
+            <Stack.Screen name="KotDetails" component={KotDetailsScreen} />
           </>
         )}
       </Stack.Navigator>
