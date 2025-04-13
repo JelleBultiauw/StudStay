@@ -84,7 +84,8 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Profile</Text>
       {user && (
-        <View style={styles.content}>
+        <>
+          {/* Personal Information */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Personal Information</Text>
             <View style={styles.infoCard}>
@@ -103,6 +104,7 @@ export default function ProfileScreen() {
             </View>
           </View>
 
+          {/* My Kots (Scrollable Section) */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>My Kots</Text>
             {isLoadingKots ? (
@@ -124,10 +126,14 @@ export default function ProfileScreen() {
                 renderItem={renderKot}
                 refreshing={isLoadingKots}
                 onRefresh={fetchUserKots}
+                contentContainerStyle={styles.kotsList}
+                showsVerticalScrollIndicator={false}
+                style={styles.scrollableKots} // Make the FlatList scrollable
               />
             )}
           </View>
 
+          {/* Logout Button */}
           <TouchableOpacity
             style={styles.logoutButton}
             onPress={handleLogout}
@@ -139,7 +145,7 @@ export default function ProfileScreen() {
               <Text style={styles.logoutButtonText}>Logout</Text>
             )}
           </TouchableOpacity>
-        </View>
+        </>
       )}
     </View>
   );
@@ -155,9 +161,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 24,
-  },
-  content: {
-    flex: 1,
   },
   section: {
     marginBottom: 24,
@@ -226,11 +229,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  kotsList: {
+    paddingBottom: 24, // Add padding to avoid cutting off content
+  },
+  scrollableKots: {
+    maxHeight: 300, // Limit the height of the scrollable area
+  },
   logoutButton: {
     backgroundColor: '#FF3B30',
     padding: 16,
     borderRadius: 8,
-    marginTop: 24,
+    marginTop: 16,
+    marginBottom: 16,
   },
   logoutButtonText: {
     color: '#fff',
@@ -238,4 +248,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-}); 
+});
