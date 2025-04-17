@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { supabase } from '../../lib/supabaseClient';
+import { useAuth } from '../../lib/auth';
 import { Ionicons } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -28,6 +29,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function Home() {
   const navigation = useNavigation<NavigationProp>();
+  const { user } = useAuth();
   const [kots, setKots] = useState<Kot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const screenWidth = Dimensions.get('window').width;
@@ -41,6 +43,7 @@ export default function Home() {
       const { data, error } = await supabase
         .from('kots')
         .select('*')
+        .neq('user_id', user?.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

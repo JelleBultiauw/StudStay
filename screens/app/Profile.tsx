@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator, FlatList, StyleSheet }
 import { useAuth } from '../../lib/auth';
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Kot {
   id: number;
@@ -104,35 +105,6 @@ export default function ProfileScreen() {
             </View>
           </View>
 
-          {/* My Kots (Scrollable Section) */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>My Kots</Text>
-            {isLoadingKots ? (
-              <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
-            ) : kots.length === 0 ? (
-              <View style={styles.emptyState}>
-                <Text style={styles.emptyStateText}>You haven't uploaded any kots yet</Text>
-                <TouchableOpacity 
-                  style={styles.uploadButton}
-                  onPress={() => router.push('/UploadKot')}
-                >
-                  <Text style={styles.uploadButtonText}>Upload a Kot</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <FlatList
-                data={kots}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderKot}
-                refreshing={isLoadingKots}
-                onRefresh={fetchUserKots}
-                contentContainerStyle={styles.kotsList}
-                showsVerticalScrollIndicator={false}
-                style={styles.scrollableKots} // Make the FlatList scrollable
-              />
-            )}
-          </View>
-
           {/* Logout Button */}
           <TouchableOpacity
             style={styles.logoutButton}
@@ -145,6 +117,38 @@ export default function ProfileScreen() {
               <Text style={styles.logoutButtonText}>Logout</Text>
             )}
           </TouchableOpacity>
+
+          {/* My Kots (Scrollable Section) */}
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>My Kots</Text>
+              <TouchableOpacity 
+                style={styles.uploadButton}
+                onPress={() => router.push('/UploadKot')}
+              >
+                <Ionicons name="add-circle" size={20} color="#fff" />
+                <Text style={styles.uploadButtonText}>Upload Kot</Text>
+              </TouchableOpacity>
+            </View>
+            {isLoadingKots ? (
+              <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
+            ) : kots.length === 0 ? (
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyStateText}>You haven't uploaded any kots yet</Text>
+              </View>
+            ) : (
+              <FlatList
+                data={kots}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderKot}
+                refreshing={isLoadingKots}
+                onRefresh={fetchUserKots}
+                contentContainerStyle={styles.kotsList}
+                showsVerticalScrollIndicator={false}
+                style={styles.scrollableKots}
+              />
+            )}
+          </View>
         </>
       )}
     </View>
@@ -208,6 +212,26 @@ const styles = StyleSheet.create({
   loader: {
     marginVertical: 20,
   },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  uploadButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  uploadButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+    marginLeft: 4,
+  },
   emptyState: {
     alignItems: 'center',
     padding: 20,
@@ -215,19 +239,7 @@ const styles = StyleSheet.create({
   emptyStateText: {
     fontSize: 16,
     color: '#666',
-    marginBottom: 16,
     textAlign: 'center',
-  },
-  uploadButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
-  },
-  uploadButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
   },
   kotsList: {
     paddingBottom: 24, // Add padding to avoid cutting off content
@@ -239,8 +251,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF3B30',
     padding: 16,
     borderRadius: 8,
-    marginTop: 16,
-    marginBottom: 16,
+    marginBottom: 24,
   },
   logoutButtonText: {
     color: '#fff',
