@@ -23,7 +23,7 @@ A React Native (Expo) application for student housing rentals.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/studstay.git
+git clone https://github.com/JelleBultiauw/studstay.git
 cd studstay
 ```
 
