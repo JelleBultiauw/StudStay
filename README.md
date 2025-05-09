@@ -1,6 +1,6 @@
 # StudStay - Student Housing Rental App
 
-A React Native (Expo) application for student housing rentals in Belgium.
+A React Native (Expo) application for student housing rentals.
 
 ## Features
 
